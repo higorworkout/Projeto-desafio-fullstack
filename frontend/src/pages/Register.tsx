@@ -3,6 +3,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import { TextInput } from "../components/TextInput";
 import { Button } from "../components/Button";
+import api from "../services/api";
 
 interface ErrorResponse {
   message: string;
@@ -23,10 +24,11 @@ const Register = () => {
         setError('');
 
         try {
-            const response = await axios.post('http://localhost:3000/users/signup', user);
+            const response = await api.post('/auth/signup', user);
+            console.log(response)
             const { token } = response.data;
             localStorage.setItem('token', token);
-            navigate('/dashboard');
+            navigate('/tasks');
         
         } catch (err) {
             const axiosError = err as AxiosError;

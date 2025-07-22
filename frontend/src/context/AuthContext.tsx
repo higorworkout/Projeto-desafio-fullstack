@@ -68,6 +68,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       setUser(response.data); 
       setIsAuthenticated(true);
+      navigate('/tasks');
     } catch (error) {
       console.error('Token inválido ou expirado', error);
       setIsAuthenticated(false);
@@ -94,7 +95,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       localStorage.setItem('token', token);
       setUser(user);
       setIsAuthenticated(true);
-      navigate('/dashboard');
+      navigate('/tasks');
     } catch (err) {
       const axiosError = err as AxiosError;
       const errorResponse = axiosError.response?.data as { message?: string } | undefined;
