@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres:
+    build: .docker/postgres
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: task_manager
+      POSTGRES_USER: higor
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  postgres_test:
+    image: postgres:15
+    container_name: db_test
+    environment:
+      POSTGRES_DB: task_manager_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5433:5432'  # expõe na porta 5433 local
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+
+
+  backend:
+    build: .
+    container_name: backend-api
+    env_file:
+     - .env.docker
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production 
+      DATABASE_URL: postgres://higor:password@postgres:5432/task_manager
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev
+
+
+volumes:
+  pgdata:
+  postgres_test_data:
