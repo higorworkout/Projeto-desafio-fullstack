@@ -53,9 +53,9 @@ const Register = () => {
                 label="Nome"
                 type="text"
                 value={user.name}
-                onChange={(e) => setUser({ ...user, email: e.target.value })}
+                onChange={(e) => setUser({ ...user, name: e.target.value })}
                 required
-                error={error.includes('email') ? error : undefined}
+                error={error.includes('nome') ? error : undefined}
             />
 
             <TextInput
@@ -74,7 +74,7 @@ const Register = () => {
                 required
                 error={error.includes('senha') ? error : undefined}
             />
-            <Button variant="secondary" onClick={() => alert('Clicou!')}>
+            <Button variant="secondary">
                 Criar conta   
             </Button>
             <hr className="flex-grow border-gray-300 m-5" />
