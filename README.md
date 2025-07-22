@@ -20,7 +20,7 @@ Aplicação completa para gerenciamento de tarefas com autenticação, colabora�
 
 ### Frontend
 - **React Js**
-- **Tailwind CSS** (com ShadCN-Vue)
+- **Tailwind CSS** 
 - **Vite**
 
 ---
