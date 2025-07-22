@@ -4,7 +4,15 @@ import { DataSource } from 'typeorm';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
-const envFile = process.env.NODE_ENV === 'production' ? '.env.docker' : '.env';
+// Carregar .env com base no ambiente
+const nodeEnv = process.env.NODE_ENV;
+
+if (nodeEnv === 'development') {
+  dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+} else if (nodeEnv === 'docker') {
+  dotenv.config({ path: path.resolve(process.cwd(), '.env.docker') });
+}
+
 dotenv.config({ path: path.resolve(process.cwd(), envFile) });
 
 console.log(process.env.DB_HOST);
