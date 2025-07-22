@@ -5,15 +5,24 @@ import * as dotenv from 'dotenv';
 import * as path from 'path';
 
 // Carregar .env com base no ambiente
-const nodeEnv = process.env.NODE_ENV;
+let envFile: string | null = null;
 
-if (nodeEnv === 'development') {
-  dotenv.config({ path: path.resolve(process.cwd(), '.env') });
-} else if (nodeEnv === 'docker') {
-  dotenv.config({ path: path.resolve(process.cwd(), '.env.docker') });
+switch (process.env.NODE_ENV) {
+  case 'docker':
+    envFile = '.env.docker';
+    break;
+  case 'development':
+    envFile = '.env';
+    break;
+  case 'production':
+    envFile = null;
+    break;
 }
 
-dotenv.config({ path: path.resolve(process.cwd(), envFile) });
+
+if (envFile) {
+  dotenv.config({ path: path.resolve(process.cwd(), envFile) });
+}
 
 console.log(process.env.DB_HOST);
 export const AppDataSource = new DataSource({
