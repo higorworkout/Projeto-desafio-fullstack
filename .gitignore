@@ -2,10 +2,12 @@
 node_modules
 dist
 .env
-
+.env.docker
+.env.test
 # CDK
 cdk.out
 
 # Build
 build
 .next
+
