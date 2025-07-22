@@ -52,7 +52,7 @@ const Register = () => {
             <TextInput
                 label="Nome"
                 type="text"
-                value={user.email}
+                value={user.name}
                 onChange={(e) => setUser({ ...user, email: e.target.value })}
                 required
                 error={error.includes('email') ? error : undefined}
